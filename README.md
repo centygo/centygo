@@ -21,4 +21,5 @@ JSON         2 mins          ░░░░░░░░░░░░░░░░░
 
 📈 my github stats
 
-<p align="center"> <img src="https://github-readme-stats.vercel.app/api?username=abhisheknaiidu&show_icons=true&theme=gotham" alt="centygo" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=centygo&theme=tokyonight&show_icons=true&hide_border=true&layout=compact" alt="Linguagens mais usadas por centygo" />
+
