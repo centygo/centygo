@@ -1,50 +1,32 @@
-# Nome do workflow que aparecerá na aba "Actions" do GitHub
 name: WakaTime Update
 
 on:
-  # Permite que você rode este workflow manualmente pela interface do GitHub
   workflow_dispatch:
   
-  # Roda o workflow automaticamente todos os dias à meia-noite (UTC)
   schedule:
     - cron: '0 0 * * *'
 
 jobs:
-  # Nome do "trabalho" que será executado
   update-readme:
-    # O tipo de máquina que o workflow vai usar
     runs-on: ubuntu-latest
-    
-    # As etapas (passos) que o trabalho vai executar em sequência
+
     steps:
-      # 1. Clona o seu repositório para a máquina virtual
-      # Para que o script possa acessar o README.md
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # 2. Configura o ambiente Node.js
-      # Essencial para rodar o script JavaScript
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Recomendado usar a versão LTS (Long Term Support)
+          node-version: '20' 
 
-      # 3. Instala as dependências do script
-      # O script precisa das bibliotecas 'axios' e 'dotenv' para funcionar
       - name: Install Dependencies
         run: npm install axios dotenv
 
-      # 4. Executa o script que atualiza o README
-      # Esta é a etapa principal, que busca os dados e edita o arquivo
       - name: Update README with WakaTime stats
         run: node ./scripts/update-wakatime-stats.js
         env:
-          # Passa a sua chave da API do WakaTime como uma variável de ambiente
-          # O valor é pego dos "Secrets" do seu repositório
           WAKA_API_KEY: ${{ secrets.WAKA_API_KEY }}
 
-      # 5. Faz o commit e push das alterações no README.md
-      # Se o script alterou o arquivo, esta ação salva as mudanças
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
