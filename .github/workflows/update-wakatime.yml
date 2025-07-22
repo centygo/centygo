@@ -9,10 +9,10 @@ jobs:
   update-wakatime:
     runs-on: ubuntu-latest
     name: Update WakaTime Stats
-
+    
     permissions:
       contents: write
-
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,7 +26,6 @@ jobs:
         run: npm install
 
       - name: Run WakaTime update script
-
         run: node scripts/update-wakatime-stats.js
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
