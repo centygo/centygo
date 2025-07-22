@@ -41,7 +41,7 @@ async function updateReadme(stats) {
 
   const statsBlock = formatStatsBlock(stats);
 
-  const wakaBlockRegex = /(<!--START_SECTION:waka-->)[\s\S]*(<!--END_SECTION:waka-->)/;
+  const wakaBlockRegex = /()[\s\S]*()/;
 
   const updatedReadmeContent = readmeContent.replace(
     wakaBlockRegex,
@@ -54,10 +54,16 @@ async function updateReadme(stats) {
 function formatStatsBlock(stats) {
   const BAR_LENGTH = 25;
 
-  const maxNameLength = Math.max(...stats.map(s => s.name.length));
-  const maxTextLength = Math.max(...stats.map(s => s.text.length));
+  const filteredStats = stats.filter(s => s.total_seconds > 0);
 
-  const lines = stats.map(lang => {
+  if (filteredStats.length === 0) {
+    return '```text\nCould not retrieve WakaTime stats.\n```';
+  }
+
+  const maxNameLength = Math.max(...filteredStats.map(s => s.name.length));
+  const maxTextLength = Math.max(...filteredStats.map(s => s.text.length));
+
+  const lines = filteredStats.map(lang => {
     const name = lang.name.padEnd(maxNameLength, ' ');
     const time = lang.text.padEnd(maxTextLength, ' ');
     
@@ -66,12 +72,12 @@ function formatStatsBlock(stats) {
     const emptyBlocks = BAR_LENGTH - filledBlocks;
     
     const bar = '█'.repeat(filledBlocks) + '░'.repeat(emptyBlocks);
-    const percentString = percent.toFixed(2).padStart(5, '0') + ' %';
+    const percentString = percent.toFixed(2).padStart(5, ' ') + ' %'; 
 
     return `${name}  ${time}  ${bar}  ${percentString}`;
   });
 
-  return '```txt\n' + lines.join('\n') + '\n```';
+  return '```yaml\n' + lines.join('\n') + '\n```';
 }
 
 main();
