@@ -9,19 +9,23 @@ jobs:
   update-readme-stats:
     name: Atualiza estatísticas do Todoist no README
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          
+
       - name: Install dependencies
         run: npm install axios
 
       - name: Run update script
-        run: node ./scripts/update-todoist-stats.js 
+        run: node ./scripts/update-todo-stats.js
         env:
           TODOIST_API_KEY: ${{ secrets.TODOIST_API_KEY }}
 
