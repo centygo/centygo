@@ -5,29 +5,12 @@ on:
   schedule:
     - cron: "0 */6 * * *"
 
-# jobs:
-#   update-readme:
-#     name: Update todoist stats
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v4
-#       - uses: abhisheknaiidu/todoist-readme@master
-#         with:
-#           TODOIST_API_KEY: ${{ secrets.TODOIST_API_KEY }}
-#           PREMIUM: true
-
-
 jobs:
   update-readme:
     name: Update todoist stats
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      # PASSO DE DEBUG - REMOVER DEPOIS
-      - name: Print the secret to see what is being used
-        run: echo "O valor do secret é ${{ secrets.TODOIST_API_KEY }}"
-
       - uses: abhisheknaiidu/todoist-readme@master
         with:
           TODOIST_API_KEY: ${{ secrets.TODOIST_API_KEY }}
