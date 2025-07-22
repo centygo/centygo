@@ -1,3 +1,7 @@
+for freelance work? do reach, [email](mailto:kaere.contato@gmail.com) :)
+
+📊 **this week i spent my time on:**
+<!--START_SECTION:waka-->
 
 ```txt
 TypeScript 47 mins       ███████████████░░░░░░░░░░  61.48%
@@ -5,15 +9,6 @@ JSON       18 mins       ██████░░░░░░░░░░░░�
 CSS        4 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   5.39%
 Markdown   3 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   4.95%
 JavaScript 3 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   4.58%
-```
-for freelance work? do reach, [email](mailto:kaere.contato@gmail.com) :)
-
-📊 **this week i spent my time on:**
-<!--START_SECTION:waka-->
-
-```txt
-TypeScript   14 hrs 58 mins  █████████████████████████   99.69 %
-JSON         2 mins          ░░░░░░░░░░░░░░░░░░░░░░░░░   00.31 %
 ```
 
 <!--END_SECTION:waka-->
