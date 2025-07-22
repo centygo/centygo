@@ -30,14 +30,6 @@ jobs:
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
 
-      # --- PASSO DE DEBUG ADICIONADO ---
-      # Este passo vai mostrar o conteúdo do README.md após o script rodar.
-      - name: Verify README content
-        run: |
-          echo "--- README.md content after script execution ---"
-          cat README.md
-          echo "------------------------------------------------"
-
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
