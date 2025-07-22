@@ -1,4 +1,4 @@
-name: Meu Atualizador de Stats do Todoist
+name: Todoist Update
 
 on:
   workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
         run: npm install axios
 
       - name: Run update script
-        run: node ./scripts/update-todo-stats.js
+        run: node ./scripts/update-todoist-stats.js
         env:
           TODOIST_API_KEY: ${{ secrets.TODOIST_API_KEY }}
 
