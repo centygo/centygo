@@ -16,7 +16,7 @@ async function main() {
 
     console.log('Seção do WakaTime no README.md atualizada com sucesso!');
   } catch (error) {
-    console.error('Ocorreu um erro no script do WakaTime:', error.message);
+    console.error('Ocorreu um erro no script do WakaTime:', error);
     process.exit(1);
   }
 }
@@ -55,7 +55,7 @@ function formatStatsBlock(stats) {
     return `${name}${time}${bar} ${percentString}`;
   });
 
-  return '```txt\n' + lines.join('\n') + '\n```';
+  return '```yaml\n' + lines.join('\n') + '\n```';
 }
 
 async function updateReadme(stats) {
@@ -70,7 +70,7 @@ async function updateReadme(stats) {
 
   if (startIndex === -1 || endIndex === -1) {
     console.error('Marcadores de início/fim não encontrados no README.md. Verifique se e existem.');
-    return;
+    process.exit(1); 
   }
 
   const newReadmeContent = [
