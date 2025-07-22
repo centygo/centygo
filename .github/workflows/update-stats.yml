@@ -22,7 +22,7 @@ jobs:
         run: npm install axios
 
       - name: Run WakaTime script
-        run: node scripts/update-wakatime.js 
+        run: node scripts/update-wakatime.js
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
 
