@@ -1,87 +1,101 @@
+const fs = require('fs');
+const path = require('path');
 const axios = require('axios');
-const fs = require('fs').promises;
 
-async function main() {
-  try {
-    console.log('Buscando estatísticas do WakaTime...');
+require('dotenv').config();
+
+const { WAKA_API_KEY } = process.env;
+
+const WAKATIME_API_ENDPOINT = "https://wakatime.com/api/v1/users/current/stats/last_7_days";
+
+const padRight = (str, length) => {
+    return str.length < length ? str + " ".repeat(length - str.length) : str;
+};
+
+const getWakaTimeStats = async () => {
+    try {
+        const response = await axios.get(WAKATIME_API_ENDPOINT, {
+            headers: {
+                Authorization: `Basic ${Buffer.from(WAKA_API_KEY).toString('base64')}`
+            }
+        });
+
+        const stats = response.data.data;
+        const { languages, editors, operating_systems } = stats;
+
+        let lines = [];
+
+        if (languages && languages.length > 0) {
+            lines.push('📊 **Languages**');
+            lines.push('```text');
+            languages.slice(0, 5).forEach(lang => {
+                lines.push(`${padRight(lang.name, 18)}${lang.text}`);
+            });
+            lines.push('```');
+            lines.push('');
+        }
+        
+        if (editors && editors.length > 0) {
+            lines.push('💻 **Editors**');
+            lines.push('```text');
+            editors.slice(0, 3).forEach(editor => {
+                lines.push(`${padRight(editor.name, 18)}${editor.text}`);
+            });
+            lines.push('```');
+            lines.push('');
+        }
+
+        if (operating_systems && operating_systems.length > 0) {
+            lines.push('OS');
+            lines.push('```text');
+            operating_systems.slice(0, 3).forEach(os => {
+                lines.push(`${padRight(os.name, 18)}${os.text}`);
+            });
+            lines.push('```');
+        }
+
+        return lines.join('\n').trim();
+
+    } catch (error) {
+        console.error('Error fetching WakaTime stats:', error.response ? error.response.data : error.message);
+        return null;
+    }
+};
+
+
+const updateReadme = async () => {
     const stats = await getWakaTimeStats();
 
-    if (!stats || stats.length === 0) {
-      console.log('Nenhuma estatística do WakaTime foi encontrada para atualizar.');
-      return;
+    if (!stats) {
+        console.log('Could not generate stats. Exiting.');
+        return;
     }
 
-    console.log('Estatísticas recebidas. Atualizando o README.md...');
-    await updateReadme(stats);
+    const readmePath = path.join(__dirname, '..', 'README.md');
+    let readmeContent;
 
-    console.log('Seção do WakaTime no README.md atualizada com sucesso!');
-  } catch (error) {
-    console.error('Ocorreu um erro no script do WakaTime:', error);
-    process.exit(1);
-  }
-}
+    try {
+        readmeContent = fs.readFileSync(readmePath, 'utf-8');
+    } catch (err) {
+        console.error('Error reading README.md:', err);
+        return;
+    }
 
-async function getWakaTimeStats() {
-  const apiKey = process.env.WAKATIME_API_KEY;
-  if (!apiKey) {
-    throw new Error('Secret WAKATIME_API_KEY não encontrado!');
-  }
+    const regex = /([\s\S]*)/;
+    const newBlock = `\n\n${stats}\n\n`;
+    const newReadmeContent = readmeContent.replace(regex, newBlock);
 
-  const encodedApiKey = Buffer.from(apiKey).toString('base64');
-  const url = 'https://wakatime.com/api/v1/users/current/stats/last_7_days';
+    if (newReadmeContent === readmeContent) {
+        console.error('Could not find waka:start/waka:end tags in README.md. Please add them.');
+        return;
+    }
 
-  const response = await axios.get(url, {
-    headers: { Authorization: `Basic ${encodedApiKey}` },
-  });
+    try {
+        fs.writeFileSync(readmePath, newReadmeContent);
+        console.log('Successfully updated README.md with WakaTime stats.');
+    } catch (err) {
+        console.error('Error writing to README.md:', err);
+    }
+};
 
-  return response.data.data.languages;
-}
-
-function formatStatsBlock(stats) {
-  const BAR_LENGTH = 25;
-  const filteredStats = stats.filter(s => s.total_seconds > 0);
-
-  if (filteredStats.length === 0) {
-    return '```text\nNão foi possível buscar as estatísticas do WakaTime.\n```';
-  }
-
-  const lines = filteredStats.map(lang => {
-    const name = lang.name.padEnd(11, ' ');
-    const time = lang.text.padEnd(14, ' ');
-    const percent = lang.percent;
-    const filledBlocks = Math.round((percent / 100) * BAR_LENGTH);
-    const bar = '█'.repeat(filledBlocks) + '░'.repeat(BAR_LENGTH - filledBlocks);
-    const percentString = `${percent.toFixed(2)}%`.padStart(7, ' ');
-    return `${name}${time}${bar} ${percentString}`;
-  });
-
-  return '```yaml\n' + lines.join('\n') + '\n```';
-}
-
-async function updateReadme(stats) {
-  const readmePath = 'README.md';
-  const startComment = '';
-  const endComment = '';
-
-  const readmeContent = await fs.readFile(readmePath, 'utf-8');
-
-  const startIndex = readmeContent.indexOf(startComment);
-  const endIndex = readmeContent.indexOf(endComment);
-
-  if (startIndex === -1 || endIndex === -1) {
-    console.error('Marcadores de início/fim não encontrados no README.md.');
-    process.exit(1);
-  }
-
-  const newReadmeContent = [
-    readmeContent.substring(0, startIndex + startComment.length),
-    '\n',
-    formatStatsBlock(stats),
-    '\n',
-    readmeContent.substring(endIndex)
-  ].join('');
-
-  await fs.writeFile(readmePath, newReadmeContent);
-}
-
-main();
+updateReadme();
