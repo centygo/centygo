@@ -1,17 +1,32 @@
-name: Todoist Readme
+name: Meu Atualizador de Stats do Todoist
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "0 8 * * *"
 
 jobs:
-  update-readme:
-    name: Update todoist stats
+  update-readme-stats:
+    name: Atualiza estatísticas do Todoist no README
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: abhisheknaiidu/todoist-readme@master 
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install axios
+
+      - name: Run update script
+        run: node ./scripts/update-todoist-stats.js 
+        env:
           TODOIST_API_KEY: ${{ secrets.TODOIST_API_KEY }}
-          PREMIUM: true
+
+      - name: Commit and push if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: Atualiza estatísticas do Todoist"
+          file_pattern: README.md
