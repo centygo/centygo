@@ -9,6 +9,10 @@ jobs:
   update-wakatime:
     runs-on: ubuntu-latest
     name: Update WakaTime Stats
+    
+    permissions:
+      contents: write
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,5 +28,10 @@ jobs:
       - name: Run WakaTime update script
         run: node scripts/update-wakatime.js
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'docs: update wakatime stats'
+          file_pattern: README.md
