@@ -1,9 +1,9 @@
-# name: Todoist Readme
+name: Todoist Readme
 
-# on:
-#   workflow_dispatch:
-#   schedule:
-#     - cron: "0 */6 * * *"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
 
 # jobs:
 #   update-readme:
