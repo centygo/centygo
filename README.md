@@ -3,7 +3,7 @@ for freelance work? do reach, [email](mailto:kaere.contato@gmail.com) :)
 📊 **this week i spent my time on:**
 <!--START_SECTION:waka-->
 
-```txt
+```yaml
 TypeScript 47 mins       ███████████████░░░░░░░░░░  61.48%
 JSON       18 mins       ██████░░░░░░░░░░░░░░░░░░░  23.60%
 CSS        4 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   5.39%
