@@ -1,4 +1,4 @@
-name: Waka Time Update 
+name: Update Profile README
 
 on:
   workflow_dispatch:
@@ -16,18 +16,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' 
+          node-version: '18'
 
       - name: Install dependencies
         run: npm install axios
 
       - name: Update Todoist Stats
-        run: node ./path/to/your/todoist-script.js
+        run: node scripts/update-todoist.js
         env:
           TODOIST_API_KEY: ${{ secrets.TODOIST_API_KEY }}
 
       - name: Update WakaTime Stats
-        run: node ./path/to/your/wakatime-script.js 
+        run: node scripts/update-wakatime.js
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
 
@@ -39,4 +39,3 @@ jobs:
           commit_user_name: "GitHub Actions Bot"
           commit_user_email: "actions@github.com"
           commit_author: "GitHub Actions Bot <actions@github.com>"
-
