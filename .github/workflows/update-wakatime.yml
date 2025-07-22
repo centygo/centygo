@@ -9,10 +9,10 @@ jobs:
   update-wakatime:
     runs-on: ubuntu-latest
     name: Update WakaTime Stats
-    
+
     permissions:
       contents: write
-      
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
