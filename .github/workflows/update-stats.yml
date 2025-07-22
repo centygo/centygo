@@ -1,4 +1,4 @@
-name: Update Profile README
+name: Update WakaTime Stats
 
 on:
   workflow_dispatch:
@@ -6,8 +6,8 @@ on:
     - cron: "0 */2 * * *"
 
 jobs:
-  update-readme:
-    name: Update Profile README
+  update-wakatime-stats:
+    name: Update WakaTime Stats in README
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -21,20 +21,15 @@ jobs:
       - name: Install dependencies
         run: npm install axios
 
-      - name: Update Todoist Stats
-        run: node scripts/update-todoist.js
-        env:
-          TODOIST_API_KEY: ${{ secrets.TODOIST_API_KEY }}
-
-      - name: Update WakaTime Stats
-        run: node scripts/update-wakatime.js
+      - name: Run WakaTime script
+        run: node scripts/update-wakatime.js 
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "chore: Update profile stats"
+          commit_message: "chore: Update WakaTime stats"
           file_pattern: README.md
           commit_user_name: "GitHub Actions Bot"
           commit_user_email: "actions@github.com"
