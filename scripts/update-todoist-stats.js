@@ -43,7 +43,7 @@ async function getTodoistStats() {
     karma: userData.karma,
     completedToday: statsData.days_items.find(item => item.date === new Date().toISOString().slice(0, 10))?.total_completed || 0,
     completedTotal: statsData.completed_count,
-    longestStreak: statsData.longest_streak.count,
+    longestStreak: statsData.longest_streak?.count ?? 0
   };
 }
 
