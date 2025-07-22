@@ -1,5 +1,5 @@
 # Nome do workflow que aparecerá na aba "Actions" do GitHub
-name: Update WakaTime Stats
+name: WakaTime Update
 
 on:
   # Permite que você rode este workflow manualmente pela interface do GitHub
