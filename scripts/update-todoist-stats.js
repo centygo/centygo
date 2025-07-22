@@ -55,10 +55,12 @@ async function updateReadme(stats) {
   const readmePath = 'README.md';
   let readmeContent = await fs.readFile(readmePath, 'utf-8');
 
-  const newStatsBlock = `🏆  ${stats.karma.toLocaleString('pt-BR')} Karma Points
-🌸  Completed ${stats.completedToday} tasks today
-✅  Completed ${stats.completedTotal.toLocaleString('pt-BR')} tasks so far
-⏳  Longest streak is ${stats.longestStreak} days`;
+  const newStatsBlock = [
+    `🏆  ${stats.karma.toLocaleString('pt-BR')} Karma Points`,
+    `🌸  Completed ${stats.completedToday} tasks today`,
+    `✅  Completed ${stats.completedTotal.toLocaleString('pt-BR')} tasks so far`,
+    `⏳  Longest streak is ${stats.longestStreak} days`
+  ].join('  \n');
 
   const statsBlockRegex = /(<!-- TODO-IST:START -->)[\s\S]*(<!-- TODO-IST:END -->)/;
 
