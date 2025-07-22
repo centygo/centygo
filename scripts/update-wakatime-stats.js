@@ -69,8 +69,8 @@ async function updateReadme(stats) {
   const endIndex = readmeContent.indexOf(endComment);
 
   if (startIndex === -1 || endIndex === -1) {
-    console.error('Marcadores de início/fim não encontrados no README.md. Verifique se e existem.');
-    process.exit(1); 
+    console.error('Marcadores de início/fim não encontrados no README.md.');
+    process.exit(1);
   }
 
   const newReadmeContent = [
