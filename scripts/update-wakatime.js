@@ -55,7 +55,7 @@ function formatStatsBlock(stats) {
     return `${name}${time}${bar} ${percentString}`;
   });
 
-  return '```yaml\n' + lines.join('\n') + '\n```';
+  return '```txt\n' + lines.join('\n') + '\n```';
 }
 
 async function updateReadme(stats) {
