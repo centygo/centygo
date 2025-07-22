@@ -10,6 +10,7 @@ for freelance work? do reach, [kaere.contato@gmail.com](mailto:kaere.contato@gma
 
 📊 **this week i spent my time on:**
 
+<!-- WAKA:START -->
 ```yaml
 TypeScript 47 mins       ███████████████░░░░░░░░░░  61.48%
 JSON       18 mins       ██████░░░░░░░░░░░░░░░░░░░  23.60%
@@ -17,6 +18,7 @@ CSS        4 mins        █░░░░░░░░░░░░░░░░░�
 Markdown   3 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   4.95%
 JavaScript 3 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   4.58%
 ```
+<!-- WAKA:END -->
 
 🚧 **my todoist stats:**
 <!-- TODO-IST:START -->
