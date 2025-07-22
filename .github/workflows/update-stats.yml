@@ -1,16 +1,42 @@
-name: Waka Readme
+name: Waka Time Update 
 
 on:
   workflow_dispatch:
   schedule:
-    # Runs every 2 hours
     - cron: "0 */2 * * *"
 
 jobs:
   update-readme:
-    name: Update this repo's README
+    name: Update Profile README
     runs-on: ubuntu-latest
     steps:
-      - uses: abhisheknaiidu/waka-readme@master
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
+          node-version: '18' 
+
+      - name: Install dependencies
+        run: npm install axios
+
+      - name: Update Todoist Stats
+        run: node ./path/to/your/todoist-script.js
+        env:
+          TODOIST_API_KEY: ${{ secrets.TODOIST_API_KEY }}
+
+      - name: Update WakaTime Stats
+        run: node ./path/to/your/wakatime-script.js 
+        env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: Update profile stats"
+          file_pattern: README.md
+          commit_user_name: "GitHub Actions Bot"
+          commit_user_email: "actions@github.com"
+          commit_author: "GitHub Actions Bot <actions@github.com>"
+
