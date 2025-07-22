@@ -27,11 +27,12 @@ async function getTodoistStats() {
     'https://api.todoist.com/sync/v9/sync',
     {
       sync_token: '*',
-      resource_types: '["user", "stats"]',
+      resource_types: JSON.stringify(['user', 'stats']),
     },
     {
       headers: {
         Authorization: `Bearer ${apiToken}`,
+        'Content-Type': 'application/json',
       },
     }
   );
@@ -39,9 +40,12 @@ async function getTodoistStats() {
   const userData = response.data.user;
   const statsData = response.data.stats;
 
+  const today = new Date().toISOString().slice(0, 10);
+  const todayStats = statsData.days_items.find(item => item.date === today);
+
   return {
     karma: userData.karma,
-    completedToday: statsData.days_items.find(item => item.date === new Date().toISOString().slice(0, 10))?.total_completed || 0,
+    completedToday: todayStats?.total_completed || 0,
     completedTotal: statsData.completed_count,
     longestStreak: statsData.longest_streak?.count ?? 0,
   };
@@ -54,12 +58,13 @@ async function updateReadme(stats) {
   const newStatsBlock = `🏆  ${stats.karma.toLocaleString('pt-BR')} Karma Points
 🌸  Completed ${stats.completedToday} tasks today
 ✅  Completed ${stats.completedTotal.toLocaleString('pt-BR')} tasks so far
-⏳  Longest streak is ${stats.longestStreak} days
-`;
+⏳  Longest streak is ${stats.longestStreak} days`;
+
+  const statsBlockRegex = /(<!-- TODO-IST:START -->)[\s\S]*(<!-- TODO-IST:END -->)/;
 
   const updatedReadmeContent = readmeContent.replace(
-    /[\s\S]*/,
-    newStatsBlock
+    statsBlockRegex,
+    `$1\n${newStatsBlock}\n$2`
   );
 
   await fs.writeFile(readmePath, updatedReadmeContent);
