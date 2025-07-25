@@ -19,6 +19,6 @@
   "homepage": "https://github.com/centygo/centygo#readme",
   "dependencies": {
     "axios": "^1.11.0",
-    "dotenv": "^17.2.0"
+    "dotenv": "^17.2.1"
   }
 }
