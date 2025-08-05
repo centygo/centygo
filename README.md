@@ -1,26 +1,16 @@
-for freelance work? do reach, [kaere.contato@gmail.com](mailto:kaere.contato@gmail.com) :)
+## Hi, I'm Kaere 🇧🇷  
+A Brazilian software engineer passionate about creating beautiful and intuitive interfaces. I am a retired UI designer and front-end development specialist, always exploring new technologies.  
 
-📊 **this week i spent my time on:**
+### 💻 Experienced with:  
+JavaScript, TypeScript, React, React Native, Next.js, Node.js, Tailwind, Styled-Components, Bootstrap.  
 
-<!-- WAKA:START -->
-```yaml
-TypeScript 47 mins       ███████████████░░░░░░░░░░  61.48%
-JSON       18 mins       ██████░░░░░░░░░░░░░░░░░░░  23.60%
-CSS        4 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   5.39%
-Markdown   3 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   4.95%
-JavaScript 3 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   4.58%
-```
-<!-- WAKA:END -->
+### 🚀 Currently working with:  
+React, Next.js and Tailwind, helping build great digital experiences.  
 
-🚧 **my todoist stats:**
-<!-- TODO-IST:START -->
-🏆  19.524 Karma Points  
-🌸  Completed 0 tasks today  
-✅  Completed 4.882 tasks so far  
-⏳  Longest streak is 0 days
-<!-- TODO-IST:END -->
+### 📍 Currently in Brazil 🇧🇷
 
+### 📚 Currently learning:  
+Swift / SwiftUI / Java (I don't know why)  
 
-📈 my github stats
-
-<p align="center"> <img src="https://github-readme-stats.vercel.app/api?username=centygo&show_icons=true&theme=gotham" alt="centygo" />
+### 🔍 A bit about my journey:  
+I started my career sailing in the wrong direction as a UX Designer. My first opportunity introduced me to JavaScript and modern web frameworks, which I fell in love with and dedicated all my energy to. Over time, I specialized in front-end development, working on projects that impact real users. I am always experimenting and wanting to learn new things, whether technologies or other areas of knowledge.
